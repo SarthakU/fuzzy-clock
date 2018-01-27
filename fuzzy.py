@@ -29,14 +29,6 @@ def n2a(number):
         return TENS_DICT[number // 10] + ' ' + ONES_DICT[number % 10]
 
 
-
-
-time = datetime.datetime.now().timetuple()
-print(time)
-hour = time[3]
-minutes = time[4]
-
-
 def next(n):
     return 12 if n == 11 else n + 1
 
@@ -44,6 +36,9 @@ def next(n):
 def fuzzyTime(hour, minutes):
     cond = ((minutes + 2) % 60) // 5
     hour = hour % 12
+    if minutes > 33:
+        hour = next(hour)
+    print(cond)
     if cond == 0:
         return n2a(hour) + ' o\'clock'
     elif cond == 3:
@@ -51,11 +46,14 @@ def fuzzyTime(hour, minutes):
     elif cond == 6:
         return 'half' + ' past ' + n2a(hour)
     elif cond == 9:
-        return 'quarter' + ' to ' + n2a(next(hour))
+        return 'quarter' + ' to ' + n2a(hour)
     elif 0 < cond < 6:
         return n2a(cond * 5) + ' past ' + n2a(hour)
     else:
-        return n2a(60 - cond * 5) + ' to ' + n2a(next(hour))
+        return n2a(60 - cond * 5) + ' to ' + n2a(hour)
 
 
-print(fuzzyTime(hour, minutes))
+# time = datetime.datetime.now().timetuple()
+# hour = time[3]
+# minutes = time[4]
+# fuzzyTime(hour, minutes)
