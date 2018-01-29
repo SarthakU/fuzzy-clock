@@ -35,11 +35,13 @@ def next(n):
 
 def fuzzyTime(hour, minutes):
     cond = ((minutes + 2) % 60) // 5
-    hour = hour % 12
     if minutes > 33:
         hour = next(hour)
+    if hour != 12:
+        hour = hour % 12
     if cond == 0:
         return n2a(hour) + ' o\'clock'
+
     elif cond == 3:
         return 'Quarter' + ' past ' + n2a(hour)
     elif cond == 6:
@@ -57,4 +59,4 @@ def fuzzyTime(hour, minutes):
 # time = datetime.datetime.now().timetuple()
 # hour = time[3]
 # minutes = time[4]
-# print(fuzzyTime(hour, minutes))
+# print(fuzzyTime(11, 59))
